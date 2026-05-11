@@ -1,0 +1,45 @@
+1. The Root Route (/)
+URL: http://localhost:8080/
+What to expect: This is the entry point.
+It should display: "Welcome to Harshitha's Secure App!"
+Why check this: It confirms that your basic @RestController is loaded and talking to the browser.
+
+2. The Hello Route (/hello)
+URL: http://localhost:8080/hello
+What to expect: It should display: "Hello World! You have successfully logged in via PostgreSQL."
+Why check this: This confirms that your request successfully passed through the entire "Security Handshake."
+Spring Security intercepted the request.
+MyUserDetailsService queried your PostgreSQL database.
+UserPrincipal wrapped the data correctly.
+The NoOpPasswordEncoder matched your password.
+
+3. The "Negative" Test (Very Important!)
+To be a good developer, you must also check if the "Security Guard" is actually blocking people.
+Open an Incognito/Private window in your browser.
+Go to http://localhost:8080/hello.
+When the box pops up, type a wrong password (like h999).
+Expectation: It should keep asking for the password or show an "Unauthorized" (401) error.
+It should not let you see the message.
+
+4. Check the IntelliJ Console
+While you are clicking these links, keep an eye on the Terminal/Console tab at the bottom of IntelliJ.
+If you type a username that isn't in pgAdmin, you should see your custom print statement: "User not found in Database!"
+This is proof that your Java code is actively talking to your database in real-time.
+
+Summary Table of your App
+Route: /
+Access: Logged in users
+Logic: Standard Controller check
+
+Route: /hello
+Access: Logged in users
+Logic: Full Security + DB Handshake check
+
+Route: Any other URL
+Access: Restricted
+Logic: Spring Security default (404/401)
+
+Now that you have the basic login working, you've mastered the hardest part of Spring Security: Database Integration.
+The next logical step (and what Navin does in the next video) is Password Encoding.
+Your database doesn't store "h123" in plain text where everyone can see it!
+Does everything look correct when you hit those two URLs?
