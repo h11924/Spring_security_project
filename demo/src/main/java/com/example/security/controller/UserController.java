@@ -1,6 +1,6 @@
 package com.example.security.controller;
 
-import com.example.security.model.User; // Make sure this is imported
+import com.example.security.model.User;
 import com.example.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +13,10 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    // PostMapping because we are "sending" data to the server
     @PostMapping("/register")
-    public User register(@RequestBody User user) { // Changed 'Users' to 'User'
-        return service.register(user); // Changed 'user.register' to 'service.register'
+    public User register(@RequestBody User user) {
+        // Pass the user data to the service layer for hashing and saving
+        return service.register(user);
     }
 }

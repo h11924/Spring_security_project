@@ -12,21 +12,14 @@ public class UserService {
     @Autowired
     private UserRepo repo;
 
-    // We create the encoder with a strength of 12 rounds
+    // Create the encoder once. 12 rounds is the standard "sweet spot" for speed and security.
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    /**
-     * This method handles the registration of a new user.
-     * It takes the raw password, encrypts it using BCrypt,
-     * and then saves the user to the database.
-     */
     public User register(User user) {
-        // 1. Get the plain password (e.g., "h123") from the request
-        // 2. Encode it (scramble it)
-        // 3. Set the scrambled string back into the user object
+        // Take the plain password (e.g. "h123"), turn it into a hash, and save that instead.
         user.setPassword(encoder.encode(user.getPassword()));
 
-        // 4. Save the user to PostgreSQL and return the saved object
+        // Save the user with the long encrypted password to PostgreSQL
         return repo.save(user);
     }
 }
