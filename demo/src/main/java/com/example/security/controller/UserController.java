@@ -19,4 +19,11 @@ public class UserController {
         // Pass the user data to the service layer for hashing and saving
         return service.register(user);
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
+        System.out.println(user);
+        return service.verify(user);
+    }
 }
+
